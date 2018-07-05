@@ -15,9 +15,27 @@ contract NFTActionHouse is Ownable {
   }
 
   function addNFT(ERC721 _nftContract, uint256 _nft, uint256 _price) external{
+    } 
+
+  modifier isUserAllowed(address _nftContract, uint256 _nft){
+    
+    _;
+    }
+
+  function editNFT(address _nftContract, uint256 _nft, uint256 _price) external isUserAllowed(_nftContract, _nft) {
+    }
+
+  function removeNFT(ERC721 _nftContract, uint256 _nft) external isUserAllowed(_nftContract, _nft) {
+    }
+
+
+  function buyNFT(ERC721 _nftContract, uint256 _nft) external payable {
+    }
 
 
 
+  function withdrawFunds() external {
+  
     }
 
 }
