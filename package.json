@@ -1,0 +1,23 @@
+{
+  "name": "leo nft-action-house",
+  "version": "1.0.0",
+  "description": "Leo exercise NFT Action House",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "rm -rf build && truffle compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leofishman/leoactoinhouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leofishman/leoactoinhouse/issues"
+  },
+  "homepage": "https://github.com/leofishman/leoactoinhouse/#readme",
+  "dependencies": {
+    "openzeppelin-solidity": "^1.10.0"
+  }
+}
