@@ -13,7 +13,7 @@ contract NFTActionHouse is Ownable {
   mapping(address => mapping(uint256 => uint256)) public priceOfToken;
 
   event Nftadd(address _nftContract, uint256 _nft, uint256 _price, address _user);
-
+  event Nftedit(address _nftContract, uint256 _nft, uint256 _price, address _user);
 
 
   constructor() public {
@@ -39,7 +39,9 @@ contract NFTActionHouse is Ownable {
   }
 
   function editNFT(address _nftContract, uint256 _nft, uint256 _price) external isUserAllowed(_nftContract, _nft) {
-
+    require(priceOfToken[_nftContract][_nft] != _price, "this price is the same as old price");
+    priceOfToken[_nftContract][_nft] = _price;
+    emit Nftedit(_nftContract, _nft, _price, msg.sender);
   }
 
   function removeNFT(ERC721 _nftContract, uint256 _nft) external isUserAllowed(_nftContract, _nft) {
