@@ -68,9 +68,11 @@ contract NFTActionHouse is Ownable {
 
 
   function withdrawFunds() external {
+    uint256 balance = userBalance[msg.sender];
+    require(balance > 0);
+    //require(address(this).balance >= balance);
+    userBalance[msg.sender] = 0;
+    msg.sender.transfer(balance);
+    emit Userwithdraw(msg.sender,balance);
   }
-
-
-
-
 }
