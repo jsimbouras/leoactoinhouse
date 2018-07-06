@@ -11,10 +11,13 @@ contract NFTActionHouse is Ownable {
 
   mapping(address => mapping(uint256 => address)) public ownerOfToken;
   mapping(address => mapping(uint256 => uint256)) public priceOfToken;
+  mapping(address => uint256) public userBalance;
 
   event Nftadd(address _nftContract, uint256 _nft, uint256 _price, address _user);
   event Nftedit(address _nftContract, uint256 _nft, uint256 _price, address _user);
   event Nftremove(address _nftContract, uint256 _nft, address _user);
+  event Nftsold(address _nftContract, uint256 _nft, uint256 _price, address _user);
+
 
   constructor() public {
 
@@ -53,6 +56,13 @@ contract NFTActionHouse is Ownable {
 
 
   function buyNFT(ERC721 _nftContract, uint256 _nft) external payable {
+    require(ownerOfToken[_nftContract][_nft] != address(0) && ownerOfToken[_nftContract][_nft] != msg.sender);
+    require(msg.value == priceOfToken[_nftContract][_nft]);
+    _nftContract.transferFrom(address(this), msg.sender, _nft);
+    emit Nftsold(_nftContract, _nft, priceOfToken[address(_nftContract)][_nft], msg.sender);
+    address seller = ownerOfToken[address(_nftContract)][_nft];
+    userBalance[seller] = userBalance[seller].add(msg.value);
+    delete ownerOfToken[address(_nftContract)][_nft];
   }
 
 
