@@ -14,7 +14,7 @@ contract NFTActionHouse is Ownable {
 
   event Nftadd(address _nftContract, uint256 _nft, uint256 _price, address _user);
   event Nftedit(address _nftContract, uint256 _nft, uint256 _price, address _user);
-
+  event Nftremove(address _nftContract, uint256 _nft, address _user);
 
   constructor() public {
 
@@ -45,6 +45,10 @@ contract NFTActionHouse is Ownable {
   }
 
   function removeNFT(ERC721 _nftContract, uint256 _nft) external isUserAllowed(_nftContract, _nft) {
+      _nftContract.transferFrom(address(this), msg.sender, _nft);
+      delete ownerOfToken[address(_nftContract)][_nft];
+      delete priceOfToken[address(_nftContract)][_nft];
+      emit Nftremove(_nftContract, _nft, msg.sender);
   }
 
 
