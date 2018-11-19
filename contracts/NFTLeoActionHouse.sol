@@ -17,6 +17,7 @@ contract NFTActionHouse is Ownable {
   event Nftedit(address _nftContract, uint256 _nft, uint256 _price, address _user);
   event Nftremove(address _nftContract, uint256 _nft, address _user);
   event Nftsold(address _nftContract, uint256 _nft, uint256 _price, address _user);
+  event Userwithdraw(address _user, uint256 funds);
 
 
   constructor() public {
@@ -34,7 +35,7 @@ contract NFTActionHouse is Ownable {
       emit Nftadd(_nftContract, _nft, _price, msg.sender);
 
 
-    } 
+    }
 
   modifier isUserAllowed(address _nftContract, uint256 _nft){
     require(ownerOfToken[_nftContract][_nft] == msg.sender);
